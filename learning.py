@@ -66,11 +66,10 @@ def get_RMSE(inputs: Sequence[Sequence[float]], desired_outputs: Sequence[float]
              activation_function: Callable[[
                  float], float] = activation_function,
              neuron_error: Union[Sequence[float], None] = None, MSE: Union[float, None] = None) -> float:
-    if MSE is not None:
-        return MSE ** 0.5
-    else:
-        return get_MSE(inputs, desired_outputs, weights, activation_function=activation_function,
-                       neuron_error=neuron_error)
+    MSE = MSE if MSE is not None else get_MSE(
+        inputs, desired_outputs, weights, activation_function=activation_function, neuron_error=neuron_error)
+
+    return MSE ** 0.5
 
 
 def error_correction_learning_with_RMSE_stopping(inputs: Sequence[Sequence[float]],
